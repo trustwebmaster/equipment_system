@@ -17,20 +17,12 @@
                     <div class="row justify-content-center my-auto">
                         <div class="col-md-8 col-lg-6 col-xl-5">
 
-                            <div class="mb-4 pb-2">
-                                <a href="index" class="d-block auth-logo">
-                                    <img src="{{ URL::asset('build/images/logo-dark.png') }}" alt="" height="30"
-                                        class="auth-logo-dark me-start">
-                                    <img src="{{ URL::asset('build/images/logo-light.png') }}" alt="" height="30"
-                                        class="auth-logo-light me-start">
-                                </a>
-                            </div>
 
                             <div class="card">
                                 <div class="card-body p-4">
                                     <div class="text-center mt-2">
-                                        <h5>Welcome Back !</h5>
-                                        <p class="text-muted">Sign in to continue to webadmin.</p>
+                                        <h5>Equipment Management System!</h5>
+                                        <p class="text-muted">Sign in to continue.</p>
                                     </div>
                                     <div class="p-2 mt-4">
                                         <form method="POST" action="{{ route('login') }}" class="auth-input">
@@ -86,32 +78,6 @@
                                             </div>
 
                                             <div class="mt-4 text-center">
-                                                <div class="signin-other-title">
-                                                    <h5 class="font-size-14 mb-3 mt-2 title"> Sign in with </h5>
-                                                </div>
-
-                                                <ul class="list-inline mt-2">
-                                                    <li class="list-inline-item">
-                                                        <a href="javascript:void(0)"
-                                                            class="social-list-item bg-primary text-white border-primary">
-                                                            <i class="bx bxl-facebook"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                        <a href="javascript:void(0)"
-                                                            class="social-list-item bg-info text-white border-info">
-                                                            <i class="bx bxl-linkedin"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                        <a href="javascript:void(0)"
-                                                            class="social-list-item bg-danger text-white border-danger">
-                                                            <i class="bx bxl-google"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="mt-4 text-center">
                                                 <p class="mb-0">Don't have an account ? <a href="{{ route('register') }}"
                                                         class="fw-medium text-primary"> Register</a></p>
                                             </div>
@@ -130,8 +96,7 @@
                                 <p>©
                                     <script>
                                         document.write(new Date().getFullYear())
-                                    </script> webadmin. Crafted with <i
-                                        class="mdi mdi-heart text-danger"></i> by Themesdesign
+                                    </script>
                                 </p>
                             </div>
                         </div>
