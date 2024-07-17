@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostUserRequest;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,12 +12,19 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    protected UserService $userService;
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users  =  User::latest()->get();
+        $users  =  $this->userService->getUsersByDesc();
 
          return view('users.index',  ['users' => $users]);
     }
@@ -38,13 +46,7 @@ class UserController extends Controller
 
         try{
 
-           $user  =  User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-            ]);
-
-            event(new Registered($user));
+            $this->userService->createUser($request->validated());
 
             DB::commit();
 
