@@ -50,7 +50,7 @@
                 <li class="menu-title" data-key="t-layouts">Manage Users</li>
 
                 <li>
-                    <a href="{{ route('user.index') }}">
+                    <a href="{{ route('users.index') }}">
                         <i class="bx bx-user-plus icon nav-icon"></i>
                         <span class="menu-item" data-key="t-horizontal">Users</span>
                     </a>

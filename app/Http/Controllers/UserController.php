@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostUserRequest;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -14,7 +18,7 @@ class UserController extends Controller
     {
         $users  =  User::latest()->get();
 
-         return view('system-users.index',  ['users' => $users]);
+         return view('users.index',  ['users' => $users]);
     }
 
     /**
@@ -28,9 +32,30 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostUserRequest $request)
     {
-        //
+        DB::beginTransaction();
+
+        try{
+
+           $user  =  User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+
+            event(new Registered($user));
+
+            DB::commit();
+
+            return back()->with(['success' => 'User created successfully']);
+
+        }catch (\Exception $exception){
+             DB::rollBack();
+            return back()->with(['error' => $exception->getMessage()]);
+
+        }
+
     }
 
     /**
