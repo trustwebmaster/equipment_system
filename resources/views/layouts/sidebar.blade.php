@@ -47,12 +47,26 @@
 
 
 
-                <li class="menu-title" data-key="t-layouts">Layouts</li>
+                <li class="menu-title" data-key="t-layouts">Manage Users</li>
 
                 <li>
-                    <a href="layouts-horizontal">
-                        <i class="bx bx-layout icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-horizontal">Horizontal</span>
+                    <a href="{{ route('user.index') }}">
+                        <i class="bx bx-user-plus icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-horizontal">Users</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="bx bx-bookmark icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-horizontal">Roles</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="bx bx-plus-medical icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-horizontal">Assign Roles</span>
                     </a>
                 </li>
 
