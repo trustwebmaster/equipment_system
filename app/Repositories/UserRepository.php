@@ -28,4 +28,19 @@ class UserRepository implements  UserInterface
         return User::latest()->get();
     }
 
+    public function updateUser(array $userData , string $userId , string $hashedPassword) : void
+    {
+        User::where('uid' , $userId)->update([
+            'name' => $userData['name'],
+            'email' => $userData['email'],
+            'password' => $hashedPassword
+        ]);
+
+    }
+
+    public function getUser(string $userId)
+    {
+        return User::where('uid' , $userId)->first();
+    }
+
 }

@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostUserRequest;
-use App\Models\User;
 use App\Services\UserService;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class UserController extends Controller
 {
@@ -27,14 +25,6 @@ class UserController extends Controller
         $users  =  $this->userService->getUsersByDesc();
 
          return view('users.index',  ['users' => $users]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -63,32 +53,71 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $userId)
     {
-        //
+         $user  =  $this->userService->getUser($userId);
+        if (!$user) abort(ResponseAlias::HTTP_NOT_FOUND);
+
+        return view('users.show' , ['user' => $user]);
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $userId)
     {
-        //
+        $user  =  $this->userService->getUser($userId);
+        if (!$user) abort(ResponseAlias::HTTP_NOT_FOUND);
+
+        return view('users.edit' , ['user' => $user]);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PostUserRequest $request, string $userId)
     {
-        //
+        try{
+            DB::beginTransaction();
+
+            $user  =  $this->userService->getUser($userId);
+            if (!$user) abort(ResponseAlias::HTTP_NOT_FOUND);
+
+            $this->userService->updateUser($request->validated() , $userId);
+
+            return redirect()->route('users.index')->with(['error' => 'Successfully Updated User ']);
+
+            }catch (\Exception $exception){
+
+            DB::rollBack();
+
+            return back()->with(['error' => $exception->getMessage()]);
+
+        }
     }
 
     /**
      * Remove the specified resource from storage.
+     * @param string $userId
+     * @return RedirectResponse
      */
-    public function destroy(string $id)
+    public function destroy(string $userId)
     {
-        //
+        try{
+
+            $user  =  $this->userService->getUser($userId);
+            if (!$user) abort(ResponseAlias::HTTP_NOT_FOUND);
+
+            $this->userService->deleteUser($userId);
+
+            return back()->with(['success' => 'User deleted successfully']);
+
+        }catch(\Exception $exception){
+
+            return back()->with(['error' => 'User could not be deleted reason: ' .$exception->getMessage()]);
+        }
+
     }
 }

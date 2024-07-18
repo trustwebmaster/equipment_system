@@ -109,17 +109,25 @@
             const userData = users.map(user => [
                 user.name,
                 user.email,
-                user.name
+                user.name,
+                `<a href="/users/${user.uid}" class="me-2"><i class="bx bx-show"></i> View</a>
+                 <a href="/users/${user.uid}/delete" class="text-danger"><i class="bx bx-trash"></i> Delete</a>`
             ]);
 
             new gridjs.Grid({
-                columns: ["Name", "Email", "Role"],
+                columns: ["Name", "Email", "Role" , "Action"],
                 pagination: {
                     limit: 10
                 },
                 sort: true,
                 search: true,
-                data: userData
+                data: userData,
+                style: {
+                    table: {
+                        'white-space': 'nowrap'
+                    }
+                },
+                data: userData.map(row => row.map(cell => gridjs.html(cell)))
             }).render(document.getElementById("table-gridjs"));
 
         </script>

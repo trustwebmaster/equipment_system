@@ -27,6 +27,12 @@ class UserService
         event(new Registered($user));
     }
 
+    public function updateUser(array $userData , string $userId) : void
+    {
+        $hashedPassword = $this->hashPassword($userData['password']);
+        $this->userRepository->updateUser($userData , $userId , $hashedPassword);
+
+    }
 
     /**
      * @return mixed
@@ -34,6 +40,18 @@ class UserService
     public function getUsersByDesc(): mixed
     {
         return $this->userRepository->getUsersByDesc();
+    }
+
+    public function getUser(string $userId)
+    {
+        return $this->userRepository->getUser($userId);
+    }
+
+    public function deleteUser(string $userId): void
+    {
+        $user = $this->getUser($userId);
+        $user->delete();
+
     }
 
     /**
