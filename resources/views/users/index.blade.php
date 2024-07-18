@@ -103,19 +103,22 @@
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
 
         <script>
-
-            const users =  @json($users);
+            const users = @json($users);
 
             const userData = users.map(user => [
                 user.name,
                 user.email,
                 user.name,
-                `<a href="/users/${user.uid}" class="me-2"><i class="bx bx-show"></i> View</a>
-                 <a href="/users/${user.uid}/delete" class="text-danger"><i class="bx bx-trash"></i> Delete</a>`
+                `<a href="{{ route('users.show', '') }}/${user.uid}" class="me-2"><i class="bx bx-show"></i> View</a>
+                 <a href="#" class="text-danger" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-${user.uid}').submit(); }"><i class="bx bx-trash"></i> Delete</a>
+                 <form id="delete-form-${user.uid}" action="{{ route('users.destroy', '') }}/${user.uid}" method="POST" style="display: none;">
+                     @csrf
+                    @method('DELETE')
+                </form>`
             ]);
 
             new gridjs.Grid({
-                columns: ["Name", "Email", "Role" , "Action"],
+                columns: ["Name", "Email", "Role", "Action"],
                 pagination: {
                     limit: 10
                 },
@@ -129,6 +132,8 @@
                 },
                 data: userData.map(row => row.map(cell => gridjs.html(cell)))
             }).render(document.getElementById("table-gridjs"));
-
         </script>
+
+
+
 @endsection
