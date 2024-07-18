@@ -30,6 +30,7 @@ class UserService
     public function updateUser(array $userData , string $userId) : void
     {
         $hashedPassword = $this->hashPassword($userData['password']);
+
         $this->userRepository->updateUser($userData , $userId , $hashedPassword);
 
     }

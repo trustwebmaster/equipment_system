@@ -1,17 +1,16 @@
 @extends('layouts.master')
 @section('title')
-    System Users
+    Users
 @endsection
 @section('css')
     <link rel="stylesheet" href="{{ URL::asset('build/libs/gridjs/theme/mermaid.min.css') }}">
 @endsection
 @section('page-title')
-    System Users
+    Users
 @endsection
 @section('body')
-    <body>
-    @endsection
-    @section('content')
+@endsection
+@section('content')
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -90,11 +89,10 @@
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+        </div>
 
-
-    @endsection
-    @section('scripts')
+@endsection
+@section('scripts')
         <!-- gridjs js -->
         <script src="{{ URL::asset('build/libs/gridjs/gridjs.umd.js') }}"></script>
 
@@ -109,7 +107,7 @@
                 user.name,
                 user.email,
                 user.name,
-                `<a href="{{ route('users.show', '') }}/${user.uid}" class="me-2"><i class="bx bx-show"></i> View</a>
+                `<a href="/users/${user.uid}/edit" class="me-2"><i class="bx bx-show"></i> Update</a>
                  <a href="#" class="text-danger" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-${user.uid}').submit(); }"><i class="bx bx-trash"></i> Delete</a>
                  <form id="delete-form-${user.uid}" action="{{ route('users.destroy', '') }}/${user.uid}" method="POST" style="display: none;">
                      @csrf

@@ -93,6 +93,8 @@ class UserController extends Controller
 
                 $this->userService->updateUser($request->validated() , $userId);
 
+                DB::commit();
+
                 Alert::success('User Updated' , 'user updated successfully');
 
                 return redirect()->route('users.index');

@@ -9,7 +9,6 @@
     <meta content="devcs" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ URL::asset('build/images/favicon.ico') }}">
-
     <!-- include head css -->
     @include('layouts.head-css')
 </head>
