@@ -6,6 +6,7 @@ use App\Http\Requests\PostUserRequest;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class UserController extends Controller
@@ -40,11 +41,16 @@ class UserController extends Controller
 
             DB::commit();
 
-            return back()->with(['success' => 'User created successfully']);
+            Alert::success('User Creation' , 'user created successfully');
+
+            return back();
 
         }catch (\Exception $exception){
              DB::rollBack();
-            return back()->with(['error' => $exception->getMessage()]);
+
+            Alert::error('User Creation' , ' error '.$exception->getMessage());
+
+            return back();
 
         }
 
@@ -80,22 +86,25 @@ class UserController extends Controller
     public function update(PostUserRequest $request, string $userId)
     {
         try{
-            DB::beginTransaction();
+                DB::beginTransaction();
 
-            $user  =  $this->userService->getUser($userId);
-            if (!$user) abort(ResponseAlias::HTTP_NOT_FOUND);
+                $user  =  $this->userService->getUser($userId);
+                if (!$user) abort(ResponseAlias::HTTP_NOT_FOUND);
 
-            $this->userService->updateUser($request->validated() , $userId);
+                $this->userService->updateUser($request->validated() , $userId);
 
-            return redirect()->route('users.index')->with(['error' => 'Successfully Updated User ']);
+                Alert::success('User Updated' , 'user updated successfully');
+
+                return redirect()->route('users.index');
 
             }catch (\Exception $exception){
+                DB::rollBack();
 
-            DB::rollBack();
+                Alert::error('Updating User' , 'user failed to update' . $exception->getMessage());
 
-            return back()->with(['error' => $exception->getMessage()]);
-
+                return back();
         }
+
     }
 
     /**
@@ -112,11 +121,15 @@ class UserController extends Controller
 
             $this->userService->deleteUser($userId);
 
-            return back()->with(['success' => 'User deleted successfully']);
+            Alert::success('User Deletion' , 'user deleted successfully');
+
+            return back();
 
         }catch(\Exception $exception){
 
-            return back()->with(['error' => 'User could not be deleted reason: ' .$exception->getMessage()]);
+            Alert::success('User Deletion' , 'failed to delete user '.$exception->getMessage());
+
+            return back();
         }
 
     }
