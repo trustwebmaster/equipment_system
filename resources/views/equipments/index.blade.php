@@ -113,21 +113,27 @@
         <script>
             const equipments = @json($equipments);
 
-            const equipmentData = equipments.map(equipment => [
-                equipment.name,
-                equipment.status,
-                equipment.date_of_acquisition,
-                equipment.date_of_acquisition,
-                `<a href="/equipments/${equipment.uid}/edit" class="me-2"><i class="bx bx-show"></i> Update</a>
-                 <a href="#" class="text-danger" onclick="event.preventDefault(); if (confirm('Are you sure you want to remove this equipment?')) { document.getElementById('delete-form-${equipment.uid}').submit(); }"><i class="bx bx-trash"></i> Delete</a>
-                 <form id="delete-form-${equipment.uid}" action="{{ route('equipments.destroy', '') }}/${equipment.uid}" method="POST" style="display: none;">
-                     @csrf
-                    @method('DELETE')
-                </form>`
-            ]);
+            const equipmentData = equipments.map(equipment => {
+                const date = new Date(equipment.date_of_acquisition);
+                const year = date.getFullYear();
+                const month = date.toLocaleString('default', { month: 'long' });
+
+                return [
+                    equipment.name,
+                    equipment.status,
+                    year,
+                    month,
+                    `<a href="/equipments/${equipment.uid}/edit" class="me-2"><i class="bx bx-show"></i> Update</a>
+                     <a href="#" class="text-danger" onclick="event.preventDefault(); if (confirm('Are you sure you want to remove this equipment?')) { document.getElementById('delete-form-${equipment.uid}').submit(); }"><i class="bx bx-trash"></i> Delete</a>
+                     <form id="delete-form-${equipment.uid}" action="{{ route('equipments.destroy', '') }}/${equipment.uid}" method="POST" style="display: none;">
+                         @csrf
+                        @method('DELETE')
+                    </form>`
+                ];
+            });
 
             new gridjs.Grid({
-                columns: ["Equipment Name", "Type", "Year of Acquisition", 'Month of Acquisition' , "Action"],
+                columns: ["Equipment Name", "Status", "Year of Acquisition", "Month of Acquisition", "Action"],
                 pagination: {
                     limit: 10
                 },
@@ -141,6 +147,7 @@
                 },
                 data: equipmentData.map(row => row.map(cell => gridjs.html(cell)))
             }).render(document.getElementById("table-gridjs"));
+
         </script>
 
 
