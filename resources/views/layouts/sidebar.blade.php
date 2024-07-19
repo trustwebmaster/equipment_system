@@ -47,7 +47,7 @@
 
 
 
-                <li class="menu-title" data-key="t-layouts">Manage Users</li>
+                <li class="menu-title" data-key="t-layouts">User Management</li>
 
                 <li>
                     <a href="{{ route('users.index') }}">
@@ -67,6 +67,20 @@
                     <a href="#">
                         <i class="bx bx-plus-medical icon nav-icon"></i>
                         <span class="menu-item" data-key="t-horizontal">Assign Roles</span>
+                    </a>
+                </li>
+
+                <li class="menu-title" data-key="t-layouts">Equipment Management</li>
+                <li>
+                    <a href="{{ route('users.index') }}">
+                        <i class="bx bx-user-plus icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-horizontal">Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('users.index') }}">
+                        <i class="bx bx-user-plus icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-horizontal">Users</span>
                     </a>
                 </li>
 
