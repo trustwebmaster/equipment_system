@@ -41,6 +41,24 @@
 
                             <div class="col-md-8">
                                 <div class="mb-3">
+                                    <label class="form-label" for="equipment-model">Equipment  Model</label>
+                                    <input type="text" class="form-control" placeholder="Enter  Name" name="model"
+                                          value="{{$equipment->model}}" id="equipment-name" required>
+                                </div>
+                                @error('model')<span class="text-danger small">{{ $message }}</span>@enderror
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label class="form-label" for="equipment_type">Equipment  Type</label>
+                                    <input type="text" class="form-control" placeholder="Enter  Type" name="equipment_type"
+                                          value="{{$equipment->equipment_type}}" id="equipment_type" required>
+                                </div>
+                                @error('equipment_type')<span class="text-danger small">{{ $message }}</span>@enderror
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="mb-3">
                                     <label class="form-label" for="equipment-date">Date Of Acquisition</label>
                                     <input type="date" class="form-control" placeholder="Select Date" name="date"
                                            value="{{ old('date', $equipment->date_of_acquisition ) }}" id="equipment-date" required>

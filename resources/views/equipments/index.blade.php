@@ -57,6 +57,24 @@
 
                             <div class="col-md-6">
                                 <div class="mb-3">
+                                    <label class="form-label" for="equipment-model">Equipment Model</label>
+                                    <input type="text" class="form-control" placeholder="Enter Equipment Model" name="model"
+                                           id="equipment-model" required>
+                                </div>
+                                @error('model')<span class="text-danger small">{{ $message }}</span>@enderror
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="equipment_type">Equipment Type</label>
+                                    <input type="text" class="form-control" placeholder="Enter Equipment Name" name="equipment_type"
+                                           id="equipment_type" required>
+                                </div>
+                                @error('equipment_type')<span class="text-danger small">{{ $message }}</span>@enderror
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
                                     <label class="form-label" for="equipment-date">Date Of Acquisition</label>
                                     <input type="date" class="form-control" placeholder="Select Date" name="date"
                                            id="equipment-date" required>
@@ -121,6 +139,8 @@
                 return [
                     equipment.name,
                     equipment.status,
+                    equipment.model,
+                    equipment.type,
                     year,
                     month,
                     `<a href="/equipments/${equipment.uid}/edit" class="me-2"><i class="bx bx-show"></i> Update</a>
@@ -133,7 +153,7 @@
             });
 
             new gridjs.Grid({
-                columns: ["Equipment Name", "Status", "Year of Acquisition", "Month of Acquisition", "Action"],
+                columns: ["Equipment Name", "Model" , "Type" ,  "Status", "Year of Acquisition", "Month of Acquisition", "Action"],
                 pagination: {
                     limit: 10
                 },

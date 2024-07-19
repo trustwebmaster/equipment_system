@@ -12,6 +12,8 @@ class EquipmentRepository implements EquipmentInterface
     {
         return Equipment::create([
            'name' => $equipmentData['name'] ,
+           'model' => $equipmentData['model'] ,
+           'type' => $equipmentData['equipment_type'] ,
             'status' => $equipmentData['type'],
             'date_of_acquisition' => $equipmentData['date']
         ]);
@@ -22,6 +24,8 @@ class EquipmentRepository implements EquipmentInterface
     {
         Equipment::where('uid' , $equipmentId)->update([
                                 'name' => $equipmentData['name'] ,
+                                'model' => $equipmentData['model'] ,
+                                'type' => $equipmentData['equipment_type'] ,
                                 'status' => $equipmentData['type'],
                                 'date_of_acquisition' => $equipmentData['date']
                             ]);

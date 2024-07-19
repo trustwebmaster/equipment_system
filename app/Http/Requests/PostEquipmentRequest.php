@@ -23,6 +23,8 @@ class PostEquipmentRequest extends FormRequest
     {
         return [
             'name' => ['required'],
+            'model' => ['required'],
+            'equipment_type' => ['required'],
             'type' => ['required' ,'in:new,old'],
             'date' => ['required']
         ];
