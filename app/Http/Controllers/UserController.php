@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostUserRequest;
 use App\Services\UserService;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -20,6 +23,7 @@ class UserController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @return Factory|View|Application|\Illuminate\View\View
      */
     public function index()
     {
@@ -30,6 +34,8 @@ class UserController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @param PostUserRequest $request
+     * @return RedirectResponse
      */
     public function store(PostUserRequest $request)
     {
@@ -58,6 +64,8 @@ class UserController extends Controller
 
     /**
      * Display the specified resource.
+     * @param string $userId
+     * @return Factory|View|Application|\Illuminate\View\View
      */
     public function show(string $userId)
     {
@@ -70,6 +78,8 @@ class UserController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @param string $userId
+     * @return Factory|View|Application|\Illuminate\View\View
      */
     public function edit(string $userId)
     {
@@ -82,6 +92,9 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @param PostUserRequest $request
+     * @param string $userId
+     * @return RedirectResponse
      */
     public function update(PostUserRequest $request, string $userId)
     {
