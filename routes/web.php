@@ -22,6 +22,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/allocations' , [EquipmentAllocationController::class , 'index'])->name('allocations.index');
     Route::post('/allocations' , [EquipmentAllocationController::class , 'assignEquipment'])->name('allocations.store');
 
+    Route::get('/returns' , [EquipmentAllocationController::class , 'viewReturns'])->name('returns.index');
+    Route::get('/return/{allocationId}/update' , [EquipmentAllocationController::class , 'editReturn'])->name('returns.edit');
+    Route::patch('/return/{equipment}' , [EquipmentAllocationController::class , 'recordReturns'])->name('returns.update');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

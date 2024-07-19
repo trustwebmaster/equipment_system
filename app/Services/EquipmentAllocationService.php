@@ -3,9 +3,11 @@
 namespace App\Services;
 
 
+use App\Models\EquipmentAllocation;
 use App\Repositories\EquipmentAllocationRepository;
 use App\Repositories\EquipmentRepository;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
 class EquipmentAllocationService
@@ -41,6 +43,9 @@ class EquipmentAllocationService
         }
     }
 
+    /**
+     * @return array
+     */
     public function getAllocationData(): array
     {
         $users  =  $this->userRepository->getUsersWithoutAllocation();
@@ -52,5 +57,32 @@ class EquipmentAllocationService
              'equipments' => $equipments ,
              'allocations' => $allocations
          ];
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAllocatedEquipment(): Collection
+    {
+        return  $this->equipmentAllocationRepository->getAllocatedEquipment();
+    }
+
+    /**
+     * @param string $allocationId
+     * @return EquipmentAllocation
+     */
+    public function getAllocationById(string $allocationId): EquipmentAllocation
+    {
+        return  $this->equipmentAllocationRepository->getAllocationById($allocationId);
+    }
+
+    /**
+     * @param array $allocationData
+     * @param string $allocationId
+     * @return void
+     */
+    public function updateAllocation(array $allocationData , string $allocationId): void
+    {
+         $this->equipmentAllocationRepository->updateAllocation($allocationData ,  $allocationId);
     }
 }

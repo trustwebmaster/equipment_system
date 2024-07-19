@@ -122,7 +122,7 @@
                 allocation.equipment.name,
                 allocation.user.name,
                 allocation.date_of_allocation,
-                `<a href="/equipments/${allocation.uid}/edit" class="me-2"><i class="bx bx-show"></i> Update</a>`
+                `<a href="/return/${allocation.uid}/update" class="me-2"><i class="bx bx-show"></i> Return </a>`
                ];
         });
 

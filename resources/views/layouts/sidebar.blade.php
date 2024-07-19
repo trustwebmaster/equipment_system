@@ -81,8 +81,15 @@
                 <li class="menu-title" data-key="t-layouts">Assignment Management</li>
                 <li>
                     <a href="{{ route('allocations.index') }}">
-                        <i class="bx bx-paste icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-horizontal">Equipment Allocation</span>
+                        <i class="bx bx bx-clinic icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-horizontal">Manage Allocation</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('returns.index') }}">
+                        <i class="bx bx bx-clinic icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-horizontal">Manage Returns</span>
                     </a>
                 </li>
 
