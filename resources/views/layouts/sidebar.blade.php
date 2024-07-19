@@ -78,6 +78,14 @@
                     </a>
                 </li>
 
+                <li class="menu-title" data-key="t-layouts">Assignment Management</li>
+                <li>
+                    <a href="{{ route('allocations.index') }}">
+                        <i class="bx bx-paste icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-horizontal">Equipment Allocation</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
         <!-- Sidebar -->
