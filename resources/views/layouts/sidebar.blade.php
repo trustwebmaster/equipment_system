@@ -34,15 +34,11 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title" data-key="t-menu">Dashboard</li>
 
-               <li>
-                    <a href="javascript: void(0);">
-                        <i class="bx bx-home-alt icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-dashboard">Dashboard</span>
-                        <span class="badge rounded-pill bg-primary">2</span>
+                <li>
+                    <a href="{{ route('dashboard') }}">
+                        <i class="bx bx-user-plus icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-horizontal">Users</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="index" data-key="t-ecommerce">Ecommerce</a></li>
-                    </ul>
                 </li>
 
 

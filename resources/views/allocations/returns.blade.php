@@ -51,14 +51,19 @@
 
             return [
                 allocation.equipment.name,
+                allocation.equipment.model,
+                allocation.equipment.type,
                 allocation.user.name,
                 allocation.date_of_allocation,
-                `<a href="/returns/${allocation.uid}" class="me-2"><i class="bx bx-show"></i>View</a>`
+                allocation.allocation_equipment_status,
+                allocation.return_equipment_status,
+                allocation.return_date
+
             ];
         });
 
         new gridjs.Grid({
-            columns: ["Equipment", "Current User"  , "Allocation Date", "Action"],
+            columns: ["Equipment", "Model","Type", "Previous User"  , "Allocation Date", "Allocation Status", "Return Status" ,"Return Date"],
             pagination: {
                 limit: 10
             },
