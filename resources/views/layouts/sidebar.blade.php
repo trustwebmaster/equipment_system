@@ -42,7 +42,6 @@
                 </li>
 
 
-
                 <li class="menu-title" data-key="t-layouts">User Management</li>
 
                 <li>
