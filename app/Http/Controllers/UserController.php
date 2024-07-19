@@ -135,6 +135,11 @@ class UserController extends Controller
             $user  =  $this->userService->getUser($userId);
             if (!$user) abort(ResponseAlias::HTTP_NOT_FOUND);
 
+            if($user->allocation){
+                Alert::error('User Deletion' , 'failed to delete user because its already assigned to a equipment');
+                return back();
+            }
+
             $this->userService->deleteUser($userId);
 
             Alert::success('User Deletion' , 'user deleted successfully');

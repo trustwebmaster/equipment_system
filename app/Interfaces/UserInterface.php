@@ -8,5 +8,6 @@ interface UserInterface
     public function getUsersByDesc();
     public function getUser(string $userId);
     public function updateUser(array $userData , string $userId);
+    public function getUsersWithoutAllocation();
 
 }

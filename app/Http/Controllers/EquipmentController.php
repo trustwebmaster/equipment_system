@@ -120,6 +120,11 @@ class EquipmentController extends Controller
             $equipment  =  $this->equipmentService->getEquipmentbyId($equipmentId);
             if (!$equipment) abort(ResponseAlias::HTTP_NOT_FOUND);
 
+            if($equipment->user_allocation){
+                Alert::error('Equipment Deletion' , 'failed to delete equipment because it has allocation');
+                return back();
+            }
+
             $this->equipmentService->deleteEquipment($equipmentId);
 
             Alert::success('Equipment Deletion' , 'equipment deleted successfully');
@@ -128,7 +133,7 @@ class EquipmentController extends Controller
 
         }catch(\Exception $exception){
 
-            Alert::success('Equipment Deletion' , 'failed to delete equipment '.$exception->getMessage());
+            Alert::error('Equipment Deletion' , 'failed to delete equipment '.$exception->getMessage());
 
             return back();
         }
