@@ -37,6 +37,11 @@ class EquipmentRepository implements EquipmentInterface
         return Equipment::where('uid' , $equipmentId)->first();
     }
 
+    public function getEquipmentStatus(string $equipmentId): ?string
+    {
+        return Equipment::where('id' , $equipmentId)->first()->value('status');
+    }
+
 
 
 }

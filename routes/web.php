@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/equipments' , EquipmentController::class);
 
     Route::get('/allocations' , [EquipmentAllocationController::class , 'index'])->name('allocations.index');
+    Route::post('/allocations' , [EquipmentAllocationController::class , 'assignEquipment'])->name('allocations.store');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

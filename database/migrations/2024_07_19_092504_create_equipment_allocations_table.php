@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('notes')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('equipment_id')->references('id')->on('equipments')->onDelete('cascade');
+            $table->foreign('equipment_id')->references('id')->on('equipment')->onDelete('cascade');
 
             $table->softDeletes();
             $table->timestamps();
