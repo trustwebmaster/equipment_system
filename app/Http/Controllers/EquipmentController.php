@@ -85,7 +85,7 @@ class EquipmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEquipmentRequest $request, string $equipmentId)
+    public function update(PostEquipmentRequest $request, string $equipmentId)
     {
         try{
             DB::beginTransaction();
