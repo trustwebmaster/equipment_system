@@ -72,15 +72,9 @@
 
                 <li class="menu-title" data-key="t-layouts">Equipment Management</li>
                 <li>
-                    <a href="{{ route('users.index') }}">
-                        <i class="bx bx-user-plus icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-horizontal">Users</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('users.index') }}">
-                        <i class="bx bx-user-plus icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-horizontal">Users</span>
+                    <a href="{{ route('equipments.index') }}">
+                        <i class="bx bx-paste icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-horizontal">Equipment</span>
                     </a>
                 </li>
 
