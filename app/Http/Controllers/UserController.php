@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Services\UserService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -92,11 +93,11 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param PostUserRequest $request
+     * @param UpdateUserRequest $request
      * @param string $userId
      * @return RedirectResponse
      */
-    public function update(PostUserRequest $request, string $userId)
+    public function update(UpdateUserRequest $request, string $userId)
     {
         try{
                 DB::beginTransaction();
