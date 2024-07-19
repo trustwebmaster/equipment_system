@@ -34,7 +34,9 @@ class EquipmentRepository implements EquipmentInterface
 
     public function getEquipmentWithoutAllocation(): Collection
     {
-        return Equipment::doesntHave('user_allocation')->get();
+        return Equipment::doesntHave('user_allocation')->orWhereHas('user_allocation', function ($query) {
+                                        $query->whereNotNull('return_date');
+                                    })->get();
     }
 
     public function getEquipmentById(string $equipmentId): ?Equipment

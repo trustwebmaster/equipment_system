@@ -42,7 +42,9 @@ class UserRepository implements  UserInterface
 
     public function getUsersWithoutAllocation() : Collection
     {
-        return User::doesntHave('allocation')->get();
+        return User::doesntHave('allocation')->orWhereHas('allocation', function ($query) {
+            $query->whereNotNull('return_date');
+        })->get();
 
     }
 
