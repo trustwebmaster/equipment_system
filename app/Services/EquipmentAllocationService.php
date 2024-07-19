@@ -43,8 +43,8 @@ class EquipmentAllocationService
 
     public function getAllocationData(): array
     {
-        $users  =  $this->userRepository->getUsersByDesc();
-        $equipments = $this->equipmentRepository->getEquipmentByDesc();
+        $users  =  $this->userRepository->getUsersWithoutAllocation();
+        $equipments = $this->equipmentRepository->getEquipmentWithoutAllocation();
         $allocations  = $this->equipmentAllocationRepository->getAllocations();
 
          return [

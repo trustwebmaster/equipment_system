@@ -40,4 +40,10 @@ class UserRepository implements  UserInterface
 
     }
 
+    public function getUsersWithoutAllocation() : Collection
+    {
+        return User::doesntHave('allocation')->get();
+
+    }
+
 }

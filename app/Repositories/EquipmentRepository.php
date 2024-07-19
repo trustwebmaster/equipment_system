@@ -32,6 +32,11 @@ class EquipmentRepository implements EquipmentInterface
         return Equipment::latest()->get();
     }
 
+    public function getEquipmentWithoutAllocation(): Collection
+    {
+        return Equipment::doesntHave('user_allocation')->get();
+    }
+
     public function getEquipmentById(string $equipmentId): ?Equipment
     {
         return Equipment::where('uid' , $equipmentId)->first();
