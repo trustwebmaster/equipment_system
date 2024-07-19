@@ -66,9 +66,14 @@
 
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="user-password">Password</label>
-                                    <input type="text" class="form-control" placeholder="Please Enter Password with at least 6 characters"
-                                           name="password" id="user-password">
+                                    <label class="form-label" for="password-input">Password</label>
+                                    <input type="password" class="form-control  auth-pass-inputgroup input-custom-icon" placeholder="Please Enter Password with at least 8 characters"
+                                           name="password" id="password-input">
+                                    <button type="button"
+                                            class="btn btn-link position-absolute h-100 end-0 top-0"
+                                            id="password-addon">
+                                        <i class="mdi mdi-eye-outline font-size-18 text-muted"></i>
+                                    </button>
                                 </div>
                                 @error('password')<span class="text-danger small">{{ $message }}</span>@enderror
 
@@ -99,6 +104,9 @@
         <script src="{{ URL::asset('build/js/pages/gridjs.init.js') }}"></script>
         <!-- App js -->
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
+
+        <script src="{{ URL::asset('build/js/pages/pass-addon.init.js') }}"></script>
+
 
         <script>
             const users = @json($users);
