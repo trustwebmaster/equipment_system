@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uid')->index();
             $table->string('name');
-            $table->enum('type' , ['old' , 'new'])->default('new');
+            $table->enum('status' , ['old' , 'new'])->default('new');
             $table->string('date_of_acquisition');
 
             $table->softDeletes();

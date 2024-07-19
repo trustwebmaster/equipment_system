@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\UserRepository;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
@@ -65,9 +66,9 @@ class UserService
     /**
      * Retrieve all users in descending order.
      *
-     * @return array
+     * @return Collection
      */
-    public function getUsersByDesc(): array
+    public function getUsersByDesc(): Collection
     {
         return $this->userRepository->getUsersByDesc();
     }
