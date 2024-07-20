@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostEquipmentAllocationRequest;
 use App\Http\Requests\UpdateEquipmentAllocationRequest;
 use App\Services\EquipmentAllocationService;
-use App\Services\EquipmentService;
-use App\Services\UserService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -20,7 +18,7 @@ class EquipmentAllocationController extends Controller
 
     protected EquipmentAllocationService $equipmentAllocationService;
 
-    public function __construct(EquipmentAllocationService $equipmentAllocationService , UserService $userService , EquipmentService $equipmentService)
+    public function __construct(EquipmentAllocationService $equipmentAllocationService)
     {
         $this->equipmentAllocationService = $equipmentAllocationService;
     }

@@ -38,7 +38,7 @@ class EquipmentAllocationService
             $this->equipmentAllocationRepository->assignAllocation($allocationData);
 
         } catch (\Exception $e) {
-            Log::error('Failed to create equipment: ' . $e->getMessage());
+            Log::error('Failed to assign equipment to user : ' . $e->getMessage());
             throw $e;
         }
     }
@@ -80,9 +80,16 @@ class EquipmentAllocationService
      * @param array $allocationData
      * @param string $allocationId
      * @return void
+     * @throws \Exception
      */
     public function updateAllocation(array $allocationData , string $allocationId): void
     {
-         $this->equipmentAllocationRepository->updateAllocation($allocationData ,  $allocationId);
+        try{
+            $this->equipmentAllocationRepository->updateAllocation($allocationData ,  $allocationId);
+
+        } catch (\Exception $e) {
+            Log::error('Failed to update allocation of equipment : ' . $e->getMessage());
+            throw $e;
+        }
     }
 }

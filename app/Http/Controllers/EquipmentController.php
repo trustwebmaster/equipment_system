@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostEquipmentRequest;
-use App\Http\Requests\UpdateEquipmentRequest;
 use App\Services\EquipmentService;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -30,8 +29,6 @@ class EquipmentController extends Controller
         return view('equipments.index',  ['equipments' => $equipments]);
 
     }
-
-
 
     /**
      * Store a newly created resource in storage.

@@ -1,7 +1,6 @@
 <!-- ========== Left Sidebar Start ========== -->
 <div class="vertical-menu">
 
-    <!-- LOGO -->
     <div class="navbar-brand-box">
         <a href="index" class="logo logo-dark">
             <span class="logo-sm">
@@ -36,8 +35,8 @@
 
                 <li>
                     <a href="{{ route('dashboard') }}">
-                        <i class="bx bx-user-plus icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-horizontal">Users</span>
+                        <i class="bx bx-building icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-horizontal">Dashboard</span>
                     </a>
                 </li>
 
