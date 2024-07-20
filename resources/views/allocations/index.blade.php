@@ -22,7 +22,36 @@
                     </button>
                 </div>
                 <div class="card-body">
-                    <div id="table-gridjs"></div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Equipment</th>
+                                <th>Model</th>
+                                <th>Type</th>
+                                <th>Current User</th>
+                                <th>Allocation Status</th>
+                                <th>Allocation Date</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($allocations as $allocation)
+                                <tr>
+                                    <td>{{ $allocation->equipment->name }}</td>
+                                    <td>{{ $allocation->equipment->model }}</td>
+                                    <td>{{ $allocation->equipment->type }}</td>
+                                    <td>{{ $allocation->user->name }}</td>
+                                    <td>{{ $allocation->allocation->status }}</td>
+                                    <td>{{ $allocation->allocation->date }}</td>
+                                    <td>
+                                        <a href="/return/{{ $allocation->uid }}/update" class="btn btn-sm btn-warning me-2"><i class="bx bx-show"></i> Return</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- end card body -->
             </div>
@@ -45,7 +74,6 @@
                         @csrf
 
                         <div class="row">
-
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="equipment">Select Equipment</label>
@@ -67,9 +95,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('equipment')<span class="text-danger small">{{ $message }}</span>@enderror
+                                @error('user')<span class="text-danger small">{{ $message }}</span>@enderror
                             </div>
-
 
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -79,7 +106,6 @@
                                 </div>
                                 @error('date')<span class="text-danger small">{{ $message }}</span>@enderror
                             </div>
-
                         </div>
                         <div class="row mt-2">
                             <div class="col-12 text-end">
@@ -90,7 +116,6 @@
                                         class="bx bx-check me-1 align-middle"></i> Confirm</button>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div><!-- /.modal-content -->
@@ -99,54 +124,11 @@
 
 @endsection
 @section('scripts')
-    <!-- gridjs js -->
-    <script src="{{ URL::asset('build/libs/gridjs/gridjs.umd.js') }}"></script>
-
-    <script src="{{ URL::asset('build/js/pages/gridjs.init.js') }}"></script>
-    <!-- App js -->
-    <script src="{{ URL::asset('build/js/app.js') }}"></script>
-
+    <script src="{{ URL::asset('build/js/pages/pass-addon.init.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             let today = new Date().toISOString().split('T')[0];
             document.getElementById('equipment-date').setAttribute('max', today);
         });
     </script>
-
-    <script>
-        const allocations = @json($allocations);
-
-        const equipmentData = allocations.map(allocation => {
-
-            return [
-                allocation.equipment.name,
-                allocation.equipment.model,
-                allocation.equipment.type,
-                allocation.user.name,
-                allocation.allocation_equipment_status,
-                allocation.date_of_allocation,
-                `<a href="/return/${allocation.uid}/update" class="me-2"><i class="bx bx-show"></i> Return </a>`
-               ];
-        });
-
-        new gridjs.Grid({
-            columns: ["Equipment", "Current User"  ,"Model","Type","Allocation Status", "Allocation Date", "Action"],
-            pagination: {
-                limit: 10
-            },
-            sort: true,
-            search: true,
-            data: equipmentData,
-            style: {
-                table: {
-                    'white-space': 'nowrap'
-                }
-            },
-            data: equipmentData.map(row => row.map(cell => gridjs.html(cell)))
-        }).render(document.getElementById("table-gridjs"));
-
-    </script>
-
-
-
 @endsection

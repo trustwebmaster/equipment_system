@@ -11,38 +11,72 @@
 @section('body')
 @endsection
 @section('content')
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="card-title mb-0">Manage Equipments</h4>
-                        <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
-                                data-bs-toggle="modal" data-bs-target=".create-equipment">
-                            <i class="mdi mdi-plus me-1"></i>Add Equipment
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <div id="table-gridjs"></div>
-                    </div>
-                    <!-- end card body -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title mb-0">Manage Equipments</h4>
+                    <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
+                            data-bs-toggle="modal" data-bs-target=".create-equipment">
+                        <i class="mdi mdi-plus me-1"></i>Add Equipment
+                    </button>
                 </div>
-                <!-- end card -->
-            </div>
-            <!-- end col -->
-        </div>
-        <!-- end row -->
-
-        <div class="modal fade create-equipment" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myExtraLargeModalLabel">Record Equipment</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Equipment Name</th>
+                                <th>Model</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Year of Acquisition</th>
+                                <th>Month of Acquisition</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($equipments as $equipment)
+                                <tr>
+                                    <td>{{ $equipment->name }}</td>
+                                    <td>{{ $equipment->model }}</td>
+                                    <td>{{ $equipment->type }}</td>
+                                    <td>{{ $equipment->status }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($equipment->date_of_acquisition)->format('Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($equipment->date_of_acquisition)->format('F') }}</td>
+                                    <td>
+                                        <a href="/equipments/{{ $equipment->id }}/edit" class="btn btn-sm btn-warning me-2"><i class="bx bx-show"></i> Update</a>
+                                        <a href="#" class="btn btn-sm btn-danger" onclick="event.preventDefault(); if (confirm('Are you sure you want to remove this equipment?')) { document.getElementById('delete-form-{{ $equipment->id }}').submit(); }"><i class="bx bx-trash"></i> Delete</a>
+                                        <form id="delete-form-{{ $equipment->id }}" action="{{ route('equipments.destroy', $equipment->id) }}" method="POST" style="display: none;">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="modal-body">
-                        <form method="POST" action="{{ route('equipments.store') }}">
-                            @csrf
+                </div>
+                <!-- end card body -->
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+
+    <div class="modal fade create-equipment" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myExtraLargeModalLabel">Record Equipment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('equipments.store') }}">
+                        @csrf
 
                         <div class="row">
 
@@ -67,7 +101,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="equipment_type">Equipment Type</label>
-                                    <input type="text" class="form-control" placeholder="Enter Equipment Name" name="equipment_type"
+                                    <input type="text" class="form-control" placeholder="Enter Equipment Type" name="equipment_type"
                                            id="equipment_type" required>
                                 </div>
                                 @error('equipment_type')<span class="text-danger small">{{ $message }}</span>@enderror
@@ -93,8 +127,6 @@
                                 @error('type')<span class="text-danger small">{{ $message }}</span>@enderror
                             </div>
 
-
-
                         </div>
                         <div class="row mt-2">
                             <div class="col-12 text-end">
@@ -106,70 +138,18 @@
                             </div>
                         </div>
 
-                        </form>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 
 @endsection
 @section('scripts')
-        <!-- gridjs js -->
-        <script src="{{ URL::asset('build/libs/gridjs/gridjs.umd.js') }}"></script>
-
-        <script src="{{ URL::asset('build/js/pages/gridjs.init.js') }}"></script>
-        <!-- App js -->
-        <script src="{{ URL::asset('build/js/app.js') }}"></script>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                let today = new Date().toISOString().split('T')[0];
-                document.getElementById('equipment-date').setAttribute('max', today);
-            });
-        </script>
-
-        <script>
-            const equipments = @json($equipments);
-
-            const equipmentData = equipments.map(equipment => {
-                const date = new Date(equipment.date_of_acquisition);
-                const year = date.getFullYear();
-                const month = date.toLocaleString('default', { month: 'long' });
-
-                return [
-                    equipment.name,
-                    equipment.status,
-                    equipment.model,
-                    equipment.type,
-                    year,
-                    month,
-                    `<a href="/equipments/${equipment.uid}/edit" class="me-2"><i class="bx bx-show"></i> Update</a>
-                     <a href="#" class="text-danger" onclick="event.preventDefault(); if (confirm('Are you sure you want to remove this equipment?')) { document.getElementById('delete-form-${equipment.uid}').submit(); }"><i class="bx bx-trash"></i> Delete</a>
-                     <form id="delete-form-${equipment.uid}" action="{{ route('equipments.destroy', '') }}/${equipment.uid}" method="POST" style="display: none;">
-                         @csrf
-                        @method('DELETE')
-                    </form>`
-                ];
-            });
-
-            new gridjs.Grid({
-                columns: ["Equipment Name", "Model" , "Type" ,  "Status", "Year of Acquisition", "Month of Acquisition", "Action"],
-                pagination: {
-                    limit: 10
-                },
-                sort: true,
-                search: true,
-                data: equipmentData,
-                style: {
-                    table: {
-                        'white-space': 'nowrap'
-                    }
-                },
-                data: equipmentData.map(row => row.map(cell => gridjs.html(cell)))
-            }).render(document.getElementById("table-gridjs"));
-
-        </script>
-
-
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let today = new Date().toISOString().split('T')[0];
+            document.getElementById('equipment-date').setAttribute('max', today);
+        });
+    </script>
 @endsection
