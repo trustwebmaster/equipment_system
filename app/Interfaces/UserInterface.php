@@ -9,5 +9,8 @@ interface UserInterface
     public function getUser(string $userId);
     public function updateUser(array $userData , string $userId);
     public function getUsersWithoutAllocation();
+    public function getUserRoles();
+
+    public function removeCurrentUserRole(string $userId);
 
 }

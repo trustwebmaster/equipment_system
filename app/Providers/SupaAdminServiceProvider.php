@@ -21,7 +21,7 @@ class SupaAdminServiceProvider extends ServiceProvider
     public function boot(): void
     {
                 Gate::before(function ($user, $ability) {
-                         if ($user->hasRole('Super-Admin')) {
+                         if ($user->hasRole('super-admin')) {
                                  return true;
                         }
                 });

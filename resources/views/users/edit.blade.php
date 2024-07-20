@@ -49,6 +49,20 @@
 
                             <div class="col-md-6">
                                 <div class="mb-3">
+                                    <label class="form-label" for="role">Role : Current -<span class="text-bg-primary">{{ strtoupper($user->role_name) }}</span></label>
+                                    <select id="type" class="form-control form-select" name="role" required>
+
+                                        @foreach($roles as $role)
+                                            <option value="{{ $role }}">{{ $role }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                                @error('role')<span class="text-danger small">{{ $message }}</span>@enderror
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
                                     <label class="form-label" for="password-input">Enter New Password</label>
                                     <input type="password" class="form-control  auth-pass-inputgroup input-custom-icon" placeholder="Please Enter Password with at least 8 characters"
                                            name="password" id="password-input">

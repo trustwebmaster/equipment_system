@@ -32,8 +32,9 @@ class UserController extends Controller
     {
 
         $users  =  $this->userService->getUsersByDesc();
+        $roles  =  $this->userService->getUserRoles();
 
-         return view('users.index',  ['users' => $users]);
+         return view('users.index',  ['users' => $users , 'roles' => $roles]);
     }
 
     /**
@@ -90,7 +91,9 @@ class UserController extends Controller
         $user  =  $this->userService->getUser($userId);
         if (!$user) abort(ResponseAlias::HTTP_NOT_FOUND);
 
-        return view('users.edit' , ['user' => $user]);
+        $roles  =  $this->userService->getUserRoles();
+
+        return view('users.edit' , ['user' => $user , 'roles' => $roles]);
 
     }
 

@@ -52,4 +52,16 @@ class User extends Authenticatable
     {
         return $this->hasOne(EquipmentAllocation::class , 'user_id' );
     }
+
+    public function getFirstRoleName(): ?string
+    {
+        $roleNames = $this->getRoleNames();
+        return $roleNames->isNotEmpty() ? $roleNames[0] : null;
+    }
+
+    public function getRoleNameAttribute(): ?string
+    {
+        return $this->getFirstRoleName();
+    }
+
 }

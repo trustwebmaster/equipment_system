@@ -32,6 +32,9 @@ class UserService
         try {
             $userData['password'] = $this->hashPassword($userData['password']);
             $user = $this->userRepository->saveUser($userData);
+
+            $user->assignRole($userData['role']);
+
             event(new Registered($user));
         } catch (\Exception $e) {
             Log::error('Failed to create user: ' . $e->getMessage());
@@ -50,10 +53,17 @@ class UserService
     public function updateUser(array $userData, string $userId): void
     {
         try {
-            if (isset($userData['password'])) {
-                $userData['password'] = $this->hashPassword($userData['password']);
-            }
+
+            $userData['password'] = $this->hashPassword($userData['password']);
+
             $this->userRepository->updateUser($userData, $userId);
+
+            $this->userRepository->removeCurrentUserRole($userId);
+
+            $user = $this->userRepository->getUser($userId);
+
+            $user->assignRole($userData['role']);
+
         } catch (ModelNotFoundException $e) {
             Log::error('User not found: ' . $userId);
             throw $e;
@@ -71,6 +81,11 @@ class UserService
     public function getUsersByDesc(): Collection
     {
         return $this->userRepository->getUsersByDesc();
+    }
+
+    public function getUserRoles(): \Illuminate\Support\Collection
+    {
+        return $this->userRepository->getUserRoles();
     }
 
     /**

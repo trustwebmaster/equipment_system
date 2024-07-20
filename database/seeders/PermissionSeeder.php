@@ -38,7 +38,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'record return of equipment']);
 
         // create roles and assign existing permissions
-        $company_admin = Role::create(['name' => 'company_admin']);
+        $company_admin = Role::create(['name' => 'company-admin']);
         $company_admin->givePermissionTo('create equipment');
         $company_admin->givePermissionTo('edit equipment');
         $company_admin->givePermissionTo('delete equipment');
@@ -47,7 +47,7 @@ class PermissionSeeder extends Seeder
         $company_admin->givePermissionTo('view equipment');
         $company_admin->givePermissionTo('record return of equipment');
 
-        $super_admin = Role::create(['name' => 'Super-Admin']);
+        $super_admin = Role::create(['name' => 'super-admin']);
 
         $normal_user = Role::create(['name' => 'regular-user']);
 
