@@ -35,13 +35,13 @@
                             <tbody>
                             @foreach($users as $user)
                                 <tr>
-                                    <td>{{ $user['name'] }}</td>
-                                    <td>{{ $user['email'] }}</td>
-                                    <td>{{ $user['role_name'] }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->role_name }}</td>
                                     <td>
-                                        <a href="/users/{{ $user['uid'] }}/edit" class="btn btn-sm btn-warning me-2"><i class="bx bx-show"></i> Update</a>
-                                        <a href="#" class="btn btn-sm btn-danger" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-{{ $user['uid'] }}').submit(); }"><i class="bx bx-trash"></i> Delete</a>
-                                        <form id="delete-form-{{ $user['uid'] }}" action="{{ route('users.destroy', $user['uid']) }}" method="POST" style="display: none;">
+                                        <a href="/users/{{ $user->uid }}/edit" class="btn btn-sm btn-warning me-2"><i class="bx bx-show"></i> Update</a>
+                                        <a href="#" class="btn btn-sm btn-danger" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-{{ $user->uid }}').submit(); }"><i class="bx bx-trash"></i> Delete</a>
+                                        <form id="delete-form-{{ $user->uid }}" action="{{ route('users.destroy', $user->uid) }}" method="POST" style="display: none;">
                                             @csrf
                                             @method('DELETE')
                                         </form>
