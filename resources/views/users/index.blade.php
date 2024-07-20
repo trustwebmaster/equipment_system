@@ -114,7 +114,7 @@
             const userData = users.map(user => [
                 user.name,
                 user.email,
-                user.name,
+                user.role.name,
                 `<a href="/users/${user.uid}/edit" class="me-2"><i class="bx bx-show"></i> Update</a>
                  <a href="#" class="text-danger" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-${user.uid}').submit(); }"><i class="bx bx-trash"></i> Delete</a>
                  <form id="delete-form-${user.uid}" action="{{ route('users.destroy', '') }}/${user.uid}" method="POST" style="display: none;">

@@ -50,7 +50,6 @@ class PermissionSeeder extends Seeder
         $super_admin = Role::create(['name' => 'Super-Admin']);
 
         $normal_user = Role::create(['name' => 'regular-user']);
-        // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
         $user = User::factory()->create([

@@ -21,7 +21,7 @@ class UserRepository implements  UserInterface
 
     public function getUsersByDesc() : Collection
     {
-        return User::latest()->get();
+        return User::with('roles')->latest()->get();
     }
 
     public function updateUser(array $userData , string $userId) : void

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,6 +12,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use Spatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class UserController extends Controller
@@ -28,6 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
+
         $users  =  $this->userService->getUsersByDesc();
 
          return view('users.index',  ['users' => $users]);
