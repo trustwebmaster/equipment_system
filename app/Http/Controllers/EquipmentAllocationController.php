@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostEquipmentAllocationRequest;
 use App\Http\Requests\UpdateEquipmentAllocationRequest;
+use App\Models\EquipmentAllocation;
 use App\Services\EquipmentAllocationService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
@@ -28,12 +31,13 @@ class EquipmentAllocationController extends Controller
      */
     public function index()
     {
+        $allocationData = $this->equipmentAllocationService->getAllocationData();
 
-        $allocationData  =  $this->equipmentAllocationService->getAllocationData();
-
-        return view('allocations.index' , ['users' => $allocationData['users'] ,
-            'equipments' => $allocationData['equipments'] , 'allocations' => $allocationData['allocations']]);
-
+        return view('allocations.index', [
+            'users' => $allocationData['users'],
+            'equipments' => $allocationData['equipments'],
+            'allocations' => $allocationData['allocations']
+        ]);
     }
 
     /**
@@ -42,6 +46,8 @@ class EquipmentAllocationController extends Controller
      */
     public function assignEquipment(PostEquipmentAllocationRequest $request)
     {
+        $this->authorize('assign' , EquipmentAllocation::class);
+
         DB::beginTransaction();
 
         try{
@@ -69,6 +75,7 @@ class EquipmentAllocationController extends Controller
      */
     public function viewReturns()
     {
+        $this->authorize('viewReturns' , EquipmentAllocation::class);
 
         $allocations  =  $this->equipmentAllocationService->getAllocatedEquipment();
 
@@ -83,6 +90,8 @@ class EquipmentAllocationController extends Controller
     public function editReturn(string $allocationId)
     {
 
+        $this->authorize('return' , EquipmentAllocation::class);
+
         $allocation  =  $this->equipmentAllocationService->getAllocationById($allocationId);
 
         return view('allocations.edit' , [ 'allocation' => $allocation]);
@@ -96,6 +105,7 @@ class EquipmentAllocationController extends Controller
      */
     public function recordReturns(UpdateEquipmentAllocationRequest $request , string $allocationId)
     {
+        $this->authorize('return' , EquipmentAllocation::class);
 
         try{
             DB::beginTransaction();

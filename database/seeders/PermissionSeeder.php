@@ -36,10 +36,12 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'assign equipment']);
         Permission::create(['name' => 'unassign equipment']);
         Permission::create(['name' => 'record return of equipment']);
+        Permission::create(['name' => 'view equipment returns']);
 
         // create roles and assign existing permissions
         $company_admin = Role::create(['name' => 'company-admin']);
         $company_admin->givePermissionTo('create equipment');
+        $company_admin->givePermissionTo('view equipment returns');
         $company_admin->givePermissionTo('edit equipment');
         $company_admin->givePermissionTo('delete equipment');
         $company_admin->givePermissionTo('view equipment assignment');
@@ -50,13 +52,14 @@ class PermissionSeeder extends Seeder
         $super_admin = Role::create(['name' => 'super-admin']);
 
         $normal_user = Role::create(['name' => 'regular-user']);
-
+        $normal_user->givePermissionTo('view equipment assignment');
         // create demo users
         $user = User::factory()->create([
             'name' => 'Regular User',
             'email' => 'user@example.com',
             'password' => Hash::make('12345678'),
         ]);
+
         $user->assignRole($normal_user);
 
         $user = User::factory()->create([

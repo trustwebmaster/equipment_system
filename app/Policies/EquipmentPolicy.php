@@ -13,7 +13,7 @@ class EquipmentPolicy
      */
     public function before(User $user): bool
     {
-        return $user->hasRole('super-admin');
+        return $user->hasRole('company-admin');
     }
 
     /**

@@ -72,7 +72,7 @@
                     </li>
                 @endcan
 
-                @can('record return of equipment')
+                @can('view equipment returns')
                     <li>
                         <a href="{{ route('returns.index') }}">
                             <i class="bx bx bx-clinic icon nav-icon"></i>

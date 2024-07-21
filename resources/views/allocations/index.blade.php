@@ -39,19 +39,19 @@
                             </thead>
                             <tbody>
                             @foreach($allocations as $allocation)
-                                <tr>
-                                    <td>{{ $allocation->equipment->name }}</td>
-                                    <td>{{ $allocation->equipment->model }}</td>
-                                    <td>{{ $allocation->equipment->type }}</td>
-                                    <td>{{ $allocation->user->name }}</td>
-                                    <td>{{ $allocation->allocation_equipment_status }}</td>
-                                    <td>{{ $allocation->date_of_allocation }}</td>
-                                    <td>
-                                        @can('record return of equipment')
-                                           <a href="/return/{{ $allocation->uid }}/update" class="btn btn-sm btn-warning me-2"><i class="bx bx-show"></i> Return</a>
-                                        @endcan
-                                    </td>
-                                </tr>
+                                @can('view' , $allocation)
+                                    <tr>
+                                        <td>{{ $allocation->equipment->name }}</td>
+                                        <td>{{ $allocation->equipment->model }}</td>
+                                        <td>{{ $allocation->equipment->type }}</td>
+                                        <td>{{ $allocation->user->name }}</td>
+                                        <td>{{ $allocation->allocation_equipment_status }}</td>
+                                        <td>{{ $allocation->date_of_allocation }}</td>
+                                        <td>
+                                               <a href="/return/{{ $allocation->uid }}/update" class="btn btn-sm btn-warning me-2"><i class="bx bx-show"></i> Return</a>
+                                        </td>
+                                    </tr>
+                                @endcan
                             @endforeach
                             </tbody>
                         </table>

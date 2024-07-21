@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\EquipmentAllocation;
+use App\Policies\EquipmentAllocationPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,5 +25,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::before( function ($user , $ability) {
             return $user->hasRole('super-admin') ? true : null;
         });
+
+        Gate::policy(EquipmentAllocation::class, EquipmentAllocationPolicy::class);
     }
 }
