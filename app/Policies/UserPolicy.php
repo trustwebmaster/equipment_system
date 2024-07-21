@@ -10,9 +10,9 @@ class UserPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function before(User $user): bool
     {
-        //
+        return $user->hasRole('super-admin');
     }
 
     /**
@@ -57,11 +57,4 @@ class UserPolicy
 
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, User $model): bool
-    {
-        //
-    }
 }

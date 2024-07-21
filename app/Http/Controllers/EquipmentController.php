@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostEquipmentRequest;
+use App\Models\Equipment;
 use App\Services\EquipmentService;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -24,6 +25,8 @@ class EquipmentController extends Controller
      */
     public function index()
     {
+        $this->authorize('view' , Equipment::class);
+
         $equipments =  $this->equipmentService->getEquipmentByDesc();
 
         return view('equipments.index',  ['equipments' => $equipments]);
@@ -35,6 +38,8 @@ class EquipmentController extends Controller
      */
     public function store(PostEquipmentRequest $request)
     {
+        $this->authorize('create' , Equipment::class);
+
         DB::beginTransaction();
 
         try{
@@ -62,6 +67,8 @@ class EquipmentController extends Controller
      */
     public function show(string $equipmentId)
     {
+        $this->authorize('view' , Equipment::class);
+
         $equipment  =  $this->equipmentService->getEquipmentById($equipmentId);
         if (!$equipment) abort(ResponseAlias::HTTP_NOT_FOUND);
 
@@ -73,6 +80,8 @@ class EquipmentController extends Controller
      */
     public function edit(string $equipmentId)
     {
+        $this->authorize('edit' , Equipment::class);
+
         $equipment  =  $this->equipmentService->getEquipmentById($equipmentId);
         if (!$equipment) abort(ResponseAlias::HTTP_NOT_FOUND);
 
@@ -84,6 +93,7 @@ class EquipmentController extends Controller
      */
     public function update(PostEquipmentRequest $request, string $equipmentId)
     {
+        $this->authorize('update' , Equipment::class);
         try{
             DB::beginTransaction();
 
@@ -112,6 +122,7 @@ class EquipmentController extends Controller
      */
     public function destroy(string $equipmentId)
     {
+        $this->authorize('delete' , Equipment::class);
         try{
 
             $equipment  =  $this->equipmentService->getEquipmentbyId($equipmentId);

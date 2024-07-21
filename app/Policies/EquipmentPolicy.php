@@ -11,9 +11,9 @@ class EquipmentPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function before(User $user): bool
     {
-        //
+        return $user->hasRole('super-admin');
     }
 
     /**
@@ -21,7 +21,8 @@ class EquipmentPolicy
      */
     public function view(User $user, Equipment $equipment): bool
     {
-        //
+        return $user->can('view equipment');
+
     }
 
     /**
@@ -29,7 +30,8 @@ class EquipmentPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->can('create equipment');
+
     }
 
     /**
@@ -37,7 +39,8 @@ class EquipmentPolicy
      */
     public function update(User $user, Equipment $equipment): bool
     {
-        //
+        return $user->can('edit equipment');
+
     }
 
     /**
@@ -45,22 +48,7 @@ class EquipmentPolicy
      */
     public function delete(User $user, Equipment $equipment): bool
     {
-        //
-    }
+        return $user->can('delete equipment');
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Equipment $equipment): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Equipment $equipment): bool
-    {
-        //
     }
 }

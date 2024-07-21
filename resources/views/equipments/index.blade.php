@@ -48,11 +48,11 @@
                                     <td>{{ \Carbon\Carbon::parse($equipment->date_of_acquisition)->format('F') }}</td>
                                     <td>
                                         @can('edit equipment')
-                                            <a href="/equipments/{{ $equipment->id }}/edit" class="btn btn-sm btn-warning me-2"><i class="bx bx-show"></i> Update</a>
+                                            <a href="/equipments/{{ $equipment->uid }}/edit" class="btn btn-sm btn-warning me-2"><i class="bx bx-show"></i> Update</a>
                                         @endcan
                                         @can('delete equipment')
                                             <a href="#" class="btn btn-sm btn-danger" onclick="event.preventDefault(); if (confirm('Are you sure you want to remove this equipment?')) { document.getElementById('delete-form-{{ $equipment->id }}').submit(); }"><i class="bx bx-trash"></i> Delete</a>
-                                            <form id="delete-form-{{ $equipment->id }}" action="{{ route('equipments.destroy', $equipment->id) }}" method="POST" style="display: none;">
+                                            <form id="delete-form-{{ $equipment->uid }}" action="{{ route('equipments.destroy', $equipment->id) }}" method="POST" style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
