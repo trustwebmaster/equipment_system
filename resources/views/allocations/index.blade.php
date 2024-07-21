@@ -16,10 +16,12 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title mb-0">Manage Allocations</h4>
-                    <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
-                            data-bs-toggle="modal" data-bs-target=".create-equipment">
-                        <i class="mdi mdi-plus me-1"></i>Assign Equipment
-                    </button>
+                    @can('assign equipment')
+                        <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
+                                data-bs-toggle="modal" data-bs-target=".create-equipment">
+                            <i class="mdi mdi-plus me-1"></i>Assign Equipment
+                        </button>
+                    @endcan
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -45,7 +47,9 @@
                                     <td>{{ $allocation->allocation->status }}</td>
                                     <td>{{ $allocation->allocation->date }}</td>
                                     <td>
-                                        <a href="/return/{{ $allocation->uid }}/update" class="btn btn-sm btn-warning me-2"><i class="bx bx-show"></i> Return</a>
+                                        @can('record return of equipment')
+                                           <a href="/return/{{ $allocation->uid }}/update" class="btn btn-sm btn-warning me-2"><i class="bx bx-show"></i> Return</a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

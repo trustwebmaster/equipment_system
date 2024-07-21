@@ -72,6 +72,7 @@ class PermissionSeeder extends Seeder
             'email' => 'superadmin@example.com',
             'password' => Hash::make('12345678'),
         ]);
+
         $user->assignRole($super_admin);
 
     }

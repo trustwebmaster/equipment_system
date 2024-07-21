@@ -16,10 +16,12 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title mb-0">Manage System Users</h4>
-                    <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
-                            data-bs-toggle="modal" data-bs-target=".create-user">
-                        <i class="mdi mdi-plus me-1"></i>Add User
-                    </button>
+                    @can('create users')
+                        <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
+                                data-bs-toggle="modal" data-bs-target=".create-user">
+                            <i class="mdi mdi-plus me-1"></i>Add User
+                        </button>
+                    @endcan
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -39,12 +41,16 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->role_name }}</td>
                                     <td>
-                                        <a href="/users/{{ $user->uid }}/edit" class="btn btn-sm btn-warning me-2"><i class="bx bx-show"></i> Update</a>
-                                        <a href="#" class="btn btn-sm btn-danger" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-{{ $user->uid }}').submit(); }"><i class="bx bx-trash"></i> Delete</a>
-                                        <form id="delete-form-{{ $user->uid }}" action="{{ route('users.destroy', $user->uid) }}" method="POST" style="display: none;">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
+                                        @can('edit users')
+                                          <a href="/users/{{ $user->uid }}/edit" class="btn btn-sm btn-warning me-2"><i class="bx bx-show"></i> Update</a>
+                                       @endcan
+                                        @can('delete users')
+                                            <a href="#" class="btn btn-sm btn-danger" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-{{ $user->uid }}').submit(); }"><i class="bx bx-trash"></i> Delete</a>
+                                            <form id="delete-form-{{ $user->uid }}" action="{{ route('users.destroy', $user->uid) }}" method="POST" style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

@@ -16,10 +16,12 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title mb-0">Manage Equipments</h4>
-                    <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
-                            data-bs-toggle="modal" data-bs-target=".create-equipment">
-                        <i class="mdi mdi-plus me-1"></i>Add Equipment
-                    </button>
+                    @can('create equipment')
+                        <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
+                                data-bs-toggle="modal" data-bs-target=".create-equipment">
+                            <i class="mdi mdi-plus me-1"></i>Add Equipment
+                        </button>
+                    @endcan
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -45,12 +47,16 @@
                                     <td>{{ \Carbon\Carbon::parse($equipment->date_of_acquisition)->format('Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($equipment->date_of_acquisition)->format('F') }}</td>
                                     <td>
-                                        <a href="/equipments/{{ $equipment->id }}/edit" class="btn btn-sm btn-warning me-2"><i class="bx bx-show"></i> Update</a>
-                                        <a href="#" class="btn btn-sm btn-danger" onclick="event.preventDefault(); if (confirm('Are you sure you want to remove this equipment?')) { document.getElementById('delete-form-{{ $equipment->id }}').submit(); }"><i class="bx bx-trash"></i> Delete</a>
-                                        <form id="delete-form-{{ $equipment->id }}" action="{{ route('equipments.destroy', $equipment->id) }}" method="POST" style="display: none;">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
+                                        @can('edit equipment')
+                                            <a href="/equipments/{{ $equipment->id }}/edit" class="btn btn-sm btn-warning me-2"><i class="bx bx-show"></i> Update</a>
+                                        @endcan
+                                        @can('delete equipment')
+                                            <a href="#" class="btn btn-sm btn-danger" onclick="event.preventDefault(); if (confirm('Are you sure you want to remove this equipment?')) { document.getElementById('delete-form-{{ $equipment->id }}').submit(); }"><i class="bx bx-trash"></i> Delete</a>
+                                            <form id="delete-form-{{ $equipment->id }}" action="{{ route('equipments.destroy', $equipment->id) }}" method="POST" style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

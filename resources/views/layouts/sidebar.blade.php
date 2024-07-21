@@ -40,7 +40,7 @@
                     </a>
                 </li>
 
-
+               @can('view users')
                 <li class="menu-title" data-key="t-layouts">User Management</li>
 
                 <li>
@@ -50,42 +50,36 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="#">
-                        <i class="bx bx-bookmark icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-horizontal">Roles</span>
-                    </a>
-                </li>
+                @endcan
 
-                <li>
-                    <a href="#">
-                        <i class="bx bx-plus-medical icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-horizontal">Assign Roles</span>
-                    </a>
-                </li>
+                @can('view equipment')
+                    <li class="menu-title" data-key="t-layouts">Equipment Management</li>
+                    <li>
+                        <a href="{{ route('equipments.index') }}">
+                            <i class="bx bx-paste icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-horizontal">Equipment</span>
+                        </a>
+                    </li>
+                @endcan
 
-                <li class="menu-title" data-key="t-layouts">Equipment Management</li>
-                <li>
-                    <a href="{{ route('equipments.index') }}">
-                        <i class="bx bx-paste icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-horizontal">Equipment</span>
-                    </a>
-                </li>
+                @can('view equipment assignment')
+                    <li class="menu-title" data-key="t-layouts">Assignment Management</li>
+                    <li>
+                        <a href="{{ route('allocations.index') }}">
+                            <i class="bx bx bx-clinic icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-horizontal">Manage Allocation</span>
+                        </a>
+                    </li>
+                @endcan
 
-                <li class="menu-title" data-key="t-layouts">Assignment Management</li>
-                <li>
-                    <a href="{{ route('allocations.index') }}">
-                        <i class="bx bx bx-clinic icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-horizontal">Manage Allocation</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('returns.index') }}">
-                        <i class="bx bx bx-clinic icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-horizontal">Manage Returns</span>
-                    </a>
-                </li>
+                @can('record return of equipment')
+                    <li>
+                        <a href="{{ route('returns.index') }}">
+                            <i class="bx bx bx-clinic icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-horizontal">Manage Returns</span>
+                        </a>
+                    </li>
+                @endcan
 
             </ul>
         </div>
