@@ -30,6 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('view' , User::class);
 
         $users  =  $this->userService->getUsersByDesc();
         $roles  =  $this->userService->getUserRoles();
@@ -44,6 +45,8 @@ class UserController extends Controller
      */
     public function store(PostUserRequest $request)
     {
+        $this->authorize('create' , User::class);
+
         DB::beginTransaction();
 
         try{
@@ -74,6 +77,8 @@ class UserController extends Controller
      */
     public function show(string $userId)
     {
+        $this->authorize('view' , User::class);
+
          $user  =  $this->userService->getUser($userId);
         if (!$user) abort(ResponseAlias::HTTP_NOT_FOUND);
 
@@ -88,6 +93,8 @@ class UserController extends Controller
      */
     public function edit(string $userId)
     {
+        $this->authorize('edit' , User::class);
+
         $user  =  $this->userService->getUser($userId);
         if (!$user) abort(ResponseAlias::HTTP_NOT_FOUND);
 
@@ -105,6 +112,8 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, string $userId)
     {
+        $this->authorize('update' , User::class);
+
         try{
                 DB::beginTransaction();
 
@@ -136,6 +145,8 @@ class UserController extends Controller
      */
     public function destroy(string $userId)
     {
+        $this->authorize('delete' , User::class);
+
         try{
 
             $user  =  $this->userService->getUser($userId);
